@@ -1,6 +1,6 @@
-from IP_Pool.v3.ip_crawler import IpCrawler
-from IP_Pool.v3.checker import Checker
-from IP_Pool.v3.config import config
+from v3.ip_pool.ip_crawler import IpCrawler
+from v3.ip_pool.checker import Checker
+from v3.config import config
 from time import sleep
 import threading
 
