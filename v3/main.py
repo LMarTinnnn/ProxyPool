@@ -1,8 +1,8 @@
-from v3.ip_pool.ip_crawler import IpCrawler
-from v3.ip_pool.checker import Checker
-from v3.config import config
-from time import sleep
 import threading
+from time import sleep
+from config import config
+from ip_pool.checker import Checker
+from ip_pool.ip_crawler import IpCrawler
 
 
 def crawler():
