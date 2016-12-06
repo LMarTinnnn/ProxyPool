@@ -1,5 +1,5 @@
-from IP_Pool.v3.sql_command.sql_command import IpDatabase
-from IP_Pool.v3.config import config
+from v3.sql_command.sql_command import IpDatabase
+from v3.config import config
 import requests
 from bs4 import BeautifulSoup as Bs
 from time import sleep
@@ -42,7 +42,7 @@ class IpCrawler(object):
     def valid_ip(self):
         """检测ip可用性"""
         ips = self.get_ip()
-        valid_ip = []
+        valid_ip_num = 0
         for host, port in ips:
             ip = '%s:%s' % (host, port)
             try:
@@ -50,15 +50,14 @@ class IpCrawler(object):
                 remote_info = requests.get(config.test_url, config.headers, proxies=proxy, timeout=3).text
                 if remote_info != self.local_info:
                     print('{Crawler}: [%s] this works~' % ip)
-                    valid_ip.append((host, port))
+                    valid_ip_num += 1
+                    self.db.insert((host, port))  # sql_command里 insert方法传入的是list
                 else:
                     print('{Crawler}: [%s] invalid ip ... check another one' % ip)
-                if len(valid_ip) >= self.ip_number:
+                if valid_ip_num >= self.ip_number:
                     break
             except:
                 print('{Crawler}: [%s] timeout ... check another one' % ip)
-        self.db.insert(valid_ip)
-        self.db.commit()
 
     def run(self):
         self.valid_ip()
