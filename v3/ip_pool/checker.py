@@ -1,7 +1,7 @@
-from v3.sql_command.sql_command import IpDatabase
-from v3.config import config
-import requests
 from time import sleep
+import requests
+from config import config
+from sql_command.sql_helper import IpDatabase
 
 
 def local_info():
@@ -14,12 +14,11 @@ class Checker(object):
     def __init__(self):
         self.db = IpDatabase()
         self.local_info = local_info()
-        # 加一个去重复功能
-        self.seen = []
 
     def check(self):
         print('[Checker]: 开始检查ip有效性...')
         ips = self.db.get()
+        seen = []
 
         while not ips:
             print('[Checker]: 等待ip_crawler爬取代理信息...')
@@ -34,9 +33,9 @@ class Checker(object):
                 # 检测是否挂上代理
                 if remote_info != self.local_info:
                     # 去重复～
-                    if host not in self.seen:
+                    if host not in seen:
                         print('[Checker]: [%s] this works~' % ip)
-                        self.seen.append(host)
+                        seen.append(host)
                     else:
                         print('[Checker]: [%s] duplicated' % ip)
                         self.db.delete(host)
@@ -44,6 +43,7 @@ class Checker(object):
                 else:
                     print('[Checker]: [%s] invalid ip ... check another one' % ip)
                     self.db.delete(host)
+
             # Timeout or Max Retries exceptions
             except:
                 print('[Checker]: [%s] timeout ... check another one' % ip)
