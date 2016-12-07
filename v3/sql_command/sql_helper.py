@@ -48,5 +48,6 @@ class IpDatabase(object):
         self.conn.close()
 
 if __name__ == '__main__':
-    i = IpDatabase()
-    i.insert(('123.0.0.0', '000'))
+    # i = IpDatabase()
+    # i.insert(('123.0.0.0', '000'))
+    print(os.path.dirname(__file__))
