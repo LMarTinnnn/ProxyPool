@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import sys
 
 db_name = 'db_ip_pool'
 relative_path = '/../data/%s' % db_name
@@ -9,7 +10,7 @@ fields = ('ip', 'port')
 class IpDatabase(object):
     def __init__(self):
         self.table_name = 'ip_pool'
-        self.absolute_db_path = os.path.dirname(__file__) + relative_path
+        self.absolute_db_path = os.path.dirname(sys.argv[0]) + relative_path
         self.conn = sqlite3.connect(self.absolute_db_path)
         self.cur = self.conn.cursor()
         self.create()
@@ -48,6 +49,5 @@ class IpDatabase(object):
         self.conn.close()
 
 if __name__ == '__main__':
-    # i = IpDatabase()
-    # i.insert(('123.0.0.0', '000'))
-    print(os.path.dirname(__file__))
+    i = IpDatabase()
+    i.insert(('123.0.0.0', '000'))
