@@ -1,6 +1,7 @@
 import threading
 from time import sleep
-from config import config
+
+import config
 from ip_pool.checker import Checker
 from ip_pool.ip_crawler import IpCrawler
 

@@ -1,16 +1,11 @@
 import sqlite3
-import os
-import sys
-
-db_name = 'db_ip_pool'
-relative_path = '/../data/%s' % db_name
-fields = ('ip', 'port')
+from config import db_path, db_name
 
 
 class IpDatabase(object):
     def __init__(self):
-        self.table_name = 'ip_pool'
-        self.absolute_db_path = os.path.dirname(sys.argv[0]) + relative_path
+        self.table_name = db_name
+        self.absolute_db_path = db_path
         self.conn = sqlite3.connect(self.absolute_db_path)
         self.cur = self.conn.cursor()
         self.create()

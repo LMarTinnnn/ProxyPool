@@ -1,4 +1,5 @@
 import random
+import os
 
 User_Agents = [
     'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11',
@@ -23,3 +24,5 @@ headers = {
 pause_time_pool = 15 * 60
 pause_time_check = 30 * 60
 
+db_path = os.path.dirname(__file__) + '/data/db_ip_pool'
+db_name = 'ip_pool'
