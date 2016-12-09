@@ -1,8 +1,10 @@
 import re
 from time import sleep
+
 import requests
 from bs4 import BeautifulSoup as Bs
-from config import config
+
+import config
 from sql_command.sql_helper import IpDatabase
 
 _re_ip = re.compile(r'^\d{1,3}(\.\d{1,3}){3}$')

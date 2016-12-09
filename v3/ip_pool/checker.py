@@ -1,6 +1,8 @@
 from time import sleep
+
 import requests
-from config import config
+
+import config
 from sql_command.sql_helper import IpDatabase
 
 
